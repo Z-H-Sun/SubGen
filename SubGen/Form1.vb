@@ -17,14 +17,15 @@
         TextBox1.Text = TextBox1.Text.Replace("/", "\")
         If TextBox1.Text.Last = "\" Then TextBox1.Text = TextBox1.Text.Substring(0, TextBox1.Text.Length - 1) ' normalize
         Folder = TextBox1.Text ' fix the folder
+        Dim img As Bitmap
         Try
             RGBImgs = IO.Directory.GetFiles(Folder & "\RGBImages", "*.jpeg") ' note: only files with .jpeg extension will be treated
+            img = New Bitmap(RGBImgs(0)) ' load the first RGBImage as an example
         Catch ex As Exception
-            MsgBox("No .jpeg image in this directory", MsgBoxStyle.Critical)
+            MsgBox("No .jpeg image in 'RGBImages' directory", MsgBoxStyle.Critical)
             Exit Sub
         End Try
 
-        Dim img As New Bitmap(RGBImgs(0)) ' load the first RGBImage as an example
         ' Calculate mag ratio and margins
         If img.Height / img.Width < 0.75 Then ' margins at top & bottom
             Marg = 240 - 320 / img.Width * img.Height
