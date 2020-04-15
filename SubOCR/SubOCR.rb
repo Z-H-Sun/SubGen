@@ -162,13 +162,15 @@ def OCR(dataB64, fileList, mode=0)
     if paragraphs.size < fileList.size
       STDERR.puts '=>WARNING: Combined paragraph data parsing failure (Paragraph size < total moieties). You may need to transfer some text in one subtitle to another'
       STDERR.flush
-      results += ['!parsing error!']*(fileList.size-paragraphs.size)
+      results += ['']*(fileList.size-paragraphs.size) # complement the array
+      results.each_with_index {|i, x| results[x] = '!@!' + i} # each starts with flag `!@!` to indicate failure in parsing
     elsif paragraphs.size > fileList.size
       STDERR.puts '=>WARNING: Combined paragraph data parsing failure (Paragraph size > total moieties). You may need to transfer some text in one subtitle to another'
       STDERR.flush
-      results[0] += "\n!parsing error!\n" + results[fileList.size..-1].join("\n")
+      results[fileList.size-1] += "\n" + results[fileList.size..-1].join("\n") # add the remaining results to the last item
+      results.each_with_index {|i, x| results[x] = '!@!' + i} # each starts with flag `!@!` to indicate failure in parsing
     end
-    return results
+    return results[0, fileList.size]
   end
 end
 

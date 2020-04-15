@@ -4,7 +4,7 @@
     ' Of the subtitle region (of the original): left, top, width, height;
     ' Current page number; number of entries of the current page (usually 20, sometimes < 20);
     ' Whether there is any change in texts in the current page
-    Dim TxtResults(Form1.RGBImgs.Count) As String
+    Dim TxtResults(Form1.RGBImgs.Count - 1) As String
     ' Filenames of .txt files in the TXTResults folder, including those non-existing ones (to be created)
     Dim SavedPages As New List(Of Integer) ' Which pages have been saved
     Dim Labels As IEnumerable(Of Label), PictureBoxes As IEnumerable(Of PictureBox), TextBoxes As IEnumerable(Of TextBox) ' The group of 20 controls (labels, pictureboxes, and textboxes), in the reverse sequence (e.g. Label20, Label19, ..., Label1)!
@@ -131,7 +131,7 @@ NextP:
             'Catch ex As Exception
             'TxtResults.Add(Form1.Folder & "\TXTResults\" & Timing & "_1.txt")
             'End Try
-            TxtResults(i) = Form1.Folder & "\TXTResults\" & Timing & "_1.txt"
+            TxtResults(i) = Form1.Folder & "\TXTResults\" & Timing & "_0.txt"
         Next
         Labels = TableLayoutPanel1.Controls.OfType(Of Label)()
         PictureBoxes = TableLayoutPanel1.Controls.OfType(Of PictureBox)()
@@ -146,7 +146,6 @@ NextP:
             If i < totalEnabled Then
                 LoadPic(20 * Index + i)
                 Labels(19 - i).Text = 20 * Index + i + 1 ' inverse sequence
-                TextBoxes(19 - i).Enabled = True
             Else ' no images or texts beyond the totalEnabled number
                 Labels(19 - i).Text = ""
                 TextBoxes(19 - i).Text = ""
@@ -155,9 +154,6 @@ NextP:
                 ToolTip1.SetToolTip(Labels(19 - i), "")
                 PictureBoxes(19 - i).Image = Nothing
             End If
-            ' change back to default
-            TextBoxes(19 - i).BackColor = SystemColors.Window
-            TextBoxes(19 - i).ForeColor = SystemColors.WindowText
         Next
         txtChanged = False
         If SavedPages.Contains(Index) Then Me.Text = "Revision *" Else Me.Text = "Revision"
@@ -168,14 +164,29 @@ NextP:
         Dim Timing As String = IO.Path.GetFileName(Form1.RGBImgs(Index).Substring(0, Form1.RGBImgs(Index).Length - 5))
         Try
             ' Note the encoding here: UTF-8!
-            txt = IO.File.ReadAllText(TxtResults(Index), System.Text.Encoding.UTF8)
+            txt = IO.File.ReadAllText(TxtResults(Index), System.Text.Encoding.UTF8).Replace(Environment.NewLine, "|").Replace(vbLf, "|")
             ToolTip1.SetToolTip(PictureBoxes(19 - (Index Mod 20)), TxtResults(Index))
         Catch ex As Exception
             txt = ""
             ToolTip1.SetToolTip(PictureBoxes(19 - (Index Mod 20)), "(New file)")
         End Try
         ' Replace linebreaks into "|" to adapt to a non-multiline textbox
-        TextBoxes(19 - (Index Mod 20)).Text = txt.Replace(Environment.NewLine, "|").Replace(vbLf, "|")
+        With TextBoxes(19 - (Index Mod 20))
+            .Enabled = True
+            .Text = txt
+            ' change back to default
+            .BackColor = SystemColors.Window
+            .ForeColor = SystemColors.WindowText
+
+            If txt.Length >= 3 Then
+                If txt.Substring(0, 3) = "!@!" Then
+                    .Text = txt.Substring(3)
+                    .BackColor = Color.LavenderBlush
+                    .ForeColor = Color.Firebrick
+                End If
+            End If
+        End With
+
         ' Timing
         ToolTip1.SetToolTip(Labels(19 - (Index Mod 20)), Timing.Replace("__", " --> ").Replace("_", ":"))
         ' Crop the original images into subtitle regions
