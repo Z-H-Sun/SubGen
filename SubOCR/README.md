@@ -23,7 +23,7 @@ This program is Ruby-based and therefore cross-platform, and the tests on Window
 * Note: For each account, there is a 500 OCR request limit for ACCURATE mode (and 50,000 for GENERAL mode). **It is recommended to apply for multiple API Keys using various Baidu accounts.** You can append as many of them as you like to the `API_KEY` constant in `SubOCR.rb`
 
 <p align="center">
-<img width="80%" height="80%" src="/pic/1.png">
+<img width="80%" height="80%" src="/SubOCR/pic/1.png">
 </br>Fig. 1 How to fill API Keys and Secret Keys in SubOCR.rb
 </p>
 
@@ -58,7 +58,7 @@ This program is Ruby-based and therefore cross-platform, and the tests on Window
   * Either way, the output results will start with a flag `!@!`, indicating segmentation error. **This requires manual correction in [`SubGen`](/README.md)**
   * To mitigate the issue, **you can set a smaller `TOTAL_MOIETIES`.** Or under some extreme conditions, you can set it to 1, which, however, is deprecated given the limited daily quota of the ACCURATE mode
 <p align="center">
-<img width="80%" height="80%" src="/pic/2.png">
+<img width="80%" height="80%" src="/SubOCR/pic/2.png">
 </br>Fig. 2 Running results
 </p>
 
@@ -69,6 +69,6 @@ This program is Ruby-based and therefore cross-platform, and the tests on Window
   * Or, you can use the "Create Subtitle" function in `VideoSubFinder`. But unfortunately, `VideoSubFinder` does NOT support UTF-8 encoding, and there is a large chance it will say "unrecognized text," which means you have to re-encode the text files as ANSI (say, GBK for Chinese characters). **So, the best suggestion: use [`SubGen`](/README.md) instead!**
 * It is very very rare that you will encounter a fatal error that leads to a corruption of the program. It is most likely that you made some bad changes to `SubOCR.rb`. If you are running `SubOCR.exe`, it will pop up the error message before exiting (Fig. 3), which can help you debug. However, if you are sure it is a bug of the program itself, please do not hesitate to [open an issue](https://github.com/Z-H-Sun/SubGen/issues/new)
 <p align="center">
-<img width="80%" height="80%" src="/pic/3.png">
+<img width="80%" height="80%" src="/SubOCR/pic/3.png">
 </br>Fig. 3 Bug reports
 </p>
