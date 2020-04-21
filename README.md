@@ -22,7 +22,7 @@ This project mainly targets Windows users. All three programs can be run on Wind
 * `SubGen` is .NET-based. If your OS is Win7, there is nothing you need to do. If you are running on Win10, you might need to **enable the .NET Framework 3.5**. It is very simple, though, and you can just double-click the executable and follow the system prompts
 
 ## Usage
-Download [the latest release](https://github.com/Z-H-Sun/jpeg/releases/latest) for `SubOCR` and `SubGen`, and extract the zip archive, preferably in the same folder as `VideoSubFinder`
+Download [the latest release](https://github.com/Z-H-Sun/SubGen/releases/latest) for `SubOCR` and `SubGen`, and extract the zip archive, preferably in the same folder as `VideoSubFinder`
 
 ### `VideoSubFinder` and `SubOCR`
 * First of all, **remember to** click "Clear folders" in `VideoSubFinder` to remove any file generated before for other videos
