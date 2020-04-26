@@ -17,7 +17,7 @@ This README will introduce mainly the usage of `SubGen`. Some important notes fo
 
 ## System requirements
 This project mainly targets Windows users. All three programs can be run on Windows XP, 7, and 10, either 32-bit or 64-bit OS.
-* `VideoSubFinder` is C++-based. Therefore, Microsoft Visual C++ Redistributable for Visual Studio 2015-2019 is needed ([Download here](https://aka.ms/vs/16/release/vc_redist.x86.exe)). However, **it is very likeyly that you have already installed it** because a lot of other softwares depend on it
+* `VideoSubFinder` is C++-based. Therefore, Microsoft Visual C++ Redistributable for Visual Studio 2015-2019 is needed ([Download here](https://aka.ms/vs/16/release/vc_redist.x64.exe)). However, **it is very likeyly that you have already installed it** because a lot of other softwares depend on it
 * `SubOCR` is Ruby-based and therefore cross-platform. On Windows, there is **NO** additional requirement (**NO NEED** to install Ruby, unless you, as a developer, want to use your own Ruby environment). However, you **MUST have access to the Internet** becauese the program will send requests to BaiduOCR web-based API
 * `SubGen` is .NET-based. If your OS is Win7, there is nothing you need to do. If you are running on Win10, you might need to **enable the .NET Framework 3.5**. It is very simple, though, and you can just double-click the executable and follow the system prompts
 
